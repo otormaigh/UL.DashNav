@@ -2,11 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <ie.elliot.uldashbordnavigation.ui.place_holder.Title
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp" />
+
+    <ie.elliot.uldashbordnavigation.ui.place_holder.Description
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp" />
 
 </LinearLayout>
