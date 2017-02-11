@@ -20,7 +20,7 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
     private val cornerRadius: Float by lazy { resources.getDimension(R.dimen.corner_radius) }
     private val cardRect: RectF by lazy { RectF(0f, 0f, width.toFloat(), height.toFloat()) }
     private val paddingDefault: Int by lazy { (resources.getDimension(R.dimen.padding_default)).toInt() }
-    private val paddingDefaultHalf: Int by lazy { (resources.getDimension(R.dimen.padding_default)).toInt() }
+    private val paddingDefaultHalf: Int by lazy { (resources.getDimension(R.dimen.padding_default_half)).toInt() }
 
     init {
         backgroundPaint.style = Paint.Style.FILL
