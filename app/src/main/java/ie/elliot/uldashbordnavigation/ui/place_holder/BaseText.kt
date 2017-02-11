@@ -9,6 +9,7 @@ import android.support.annotation.DimenRes
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
+import ie.elliot.uldashbordnavigation.R
 
 /**
  * @author Elliot Tormey
@@ -26,14 +27,27 @@ open class BaseText(context: Context,
     private val titleRect: RectF by lazy { RectF(cornerRadius, 0f, width.toFloat() - cornerRadius, height.toFloat()) }
 
     init {
+        @ColorRes
+        val backgroundColour: Int
+
+        if (attributeSet != null) {
+            val typedArray = context.theme.obtainStyledAttributes(attributeSet, R.styleable.BaseText, 0, 0)
+            try {
+                backgroundColour = typedArray.getColor(R.styleable.BaseText_backgroundColour, defaultBackgroundRes)
+            } finally {
+                typedArray.recycle()
+            }
+        } else {
+            backgroundColour = defaultBackgroundRes
+        }
+
         backgroundPaint.style = Paint.Style.FILL
-        backgroundPaint.color = ContextCompat.getColor(context, defaultBackgroundRes)
+        backgroundPaint.color = ContextCompat.getColor(context, backgroundColour)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        val minWidth: Int = View.MeasureSpec.getSize(widthMeasureSpec)
         val minHeight: Int
         // If height is supplied by the user, respect its value.
         // Else set height to default value.
@@ -43,7 +57,7 @@ open class BaseText(context: Context,
             minHeight = Math.round(resources.getDimension(defaultHeightRes))
         }
 
-        setMeasuredDimension(minWidth, minHeight)
+        setMeasuredDimension(widthMeasureSpec, minHeight)
     }
 
     override fun onDraw(canvas: Canvas) {

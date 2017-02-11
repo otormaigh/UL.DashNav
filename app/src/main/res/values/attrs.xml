@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="Title">
+    <declare-styleable name="BaseText">
         <attr name="backgroundColour" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="Description">
+        <attr name="width_weight" format="enum">
+            <enum name="full" value="1"/>
+            <enum name="half" value="2"/>
+            <enum name="quart" value="4"/>
+        </attr>
     </declare-styleable>
 </resources>
