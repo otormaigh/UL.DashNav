@@ -1,32 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center|start"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <ie.elliot.uldashbordnavigation.ui.place_holder.Title
+    <ie.elliot.uldashbordnavigation.ui.place_holder.Card
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp" />
-
-    <ie.elliot.uldashbordnavigation.ui.place_holder.Description
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        app:width_weight="half" />
-
-    <ie.elliot.uldashbordnavigation.ui.place_holder.Description
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        app:width_weight="quart" />
+        android:elevation="4dp"
+        android:orientation="vertical"
+        app:description_count="3"
+        app:title_count="1" />
 
 </LinearLayout>

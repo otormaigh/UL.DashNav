@@ -4,11 +4,16 @@
         <attr name="backgroundColour" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="Card">
+        <attr name="title_count" format="integer" />
+        <attr name="description_count" format="integer" />
+    </declare-styleable>
+
     <declare-styleable name="Description">
         <attr name="width_weight" format="enum">
-            <enum name="full" value="1"/>
-            <enum name="half" value="2"/>
-            <enum name="quart" value="4"/>
+            <enum name="full" value="1" />
+            <enum name="half" value="2" />
+            <enum name="quart" value="4" />
         </attr>
     </declare-styleable>
 </resources>

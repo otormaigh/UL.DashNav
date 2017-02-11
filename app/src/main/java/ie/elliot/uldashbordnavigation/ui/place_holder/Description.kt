@@ -12,7 +12,7 @@ import ie.elliot.uldashbordnavigation.R
  */
 class Description(context: Context, attributeSet: AttributeSet?)
     : BaseText(context, attributeSet, R.color.background_description, R.dimen.height_description) {
-    private val widthWeight: Int
+    var widthWeight: Int = 1
 
     init {
         if (attributeSet != null) {
@@ -22,8 +22,6 @@ class Description(context: Context, attributeSet: AttributeSet?)
             } finally {
                 typedArray.recycle()
             }
-        } else {
-            widthWeight = 1
         }
     }
 

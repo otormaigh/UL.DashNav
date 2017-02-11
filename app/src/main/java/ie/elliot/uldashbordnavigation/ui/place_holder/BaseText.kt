@@ -24,7 +24,7 @@ open class BaseText(context: Context,
 
     private val backgroundPaint: Paint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private val cornerRadius: Float by lazy { (height / 2).toFloat() }
-    private val titleRect: RectF by lazy { RectF(cornerRadius, 0f, width.toFloat() - cornerRadius, height.toFloat()) }
+    private val baseRect by lazy { RectF(cornerRadius, 0f, width.toFloat() - cornerRadius, height.toFloat()) }
 
     init {
         @ColorRes
@@ -63,8 +63,11 @@ open class BaseText(context: Context,
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        // Left corner
         canvas.drawCircle(cornerRadius, cornerRadius, cornerRadius, backgroundPaint)
+        // Right corner
         canvas.drawCircle(width - cornerRadius, cornerRadius, cornerRadius, backgroundPaint)
-        canvas.drawRect(titleRect, backgroundPaint)
+        // Inbetween
+        canvas.drawRect(baseRect, backgroundPaint)
     }
 }

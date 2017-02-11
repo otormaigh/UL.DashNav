@@ -4,4 +4,7 @@
     <dimen name="height_description">9dp</dimen>
 
     <dimen name="corner_radius">7dp</dimen>
+
+    <dimen name="padding_default">16dp</dimen>
+    <dimen name="padding_default_half">8dp</dimen>
 </resources>
