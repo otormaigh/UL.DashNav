@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -20,7 +19,6 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
     private val backgroundPaint: Paint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private val cornerRadius: Float by lazy { resources.getDimension(R.dimen.corner_radius) }
     private val cardRect: RectF by lazy { RectF(0f, 0f, width.toFloat(), height.toFloat()) }
-    private val paddingDefault: Int by lazy { (resources.getDimension(R.dimen.padding_default)).toInt() }
     private val paddingDefaultHalf: Int by lazy { (resources.getDimension(R.dimen.padding_default_half)).toInt() }
 
     init {
@@ -52,17 +50,6 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
         }
 
         setWillNotDraw(false)
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
-        setPadding(paddingDefault, paddingDefault, paddingDefault, paddingDefault)
-        if (layoutParams is LinearLayout.LayoutParams) {
-            (layoutParams as LinearLayout.LayoutParams).setMargins(paddingDefault, 0, paddingDefault, paddingDefaultHalf)
-        } else if (layoutParams is RecyclerView.LayoutParams) {
-            (layoutParams as RecyclerView.LayoutParams).setMargins(paddingDefault, 0, paddingDefault, paddingDefaultHalf)
-        }
     }
 
     override fun onDraw(canvas: Canvas) {

@@ -18,12 +18,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind()
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind() {
-            setIsRecyclable(false)
-        }
-    }
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }
