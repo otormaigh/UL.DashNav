@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -57,7 +58,11 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
         setPadding(paddingDefault, paddingDefault, paddingDefault, paddingDefault)
-        (layoutParams as LinearLayout.LayoutParams).setMargins(paddingDefault, 0, paddingDefault, 0)
+        if (layoutParams is LinearLayout.LayoutParams) {
+            (layoutParams as LinearLayout.LayoutParams).setMargins(paddingDefault, 0, paddingDefault, paddingDefaultHalf)
+        } else if (layoutParams is RecyclerView.LayoutParams) {
+            (layoutParams as RecyclerView.LayoutParams).setMargins(paddingDefault, 0, paddingDefault, paddingDefaultHalf)
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
