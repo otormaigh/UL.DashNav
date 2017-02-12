@@ -1,5 +1,7 @@
 package ie.elliot.uldashbordnavigation.ui.place_holder
 
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -9,6 +11,7 @@ import android.support.annotation.DimenRes
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import ie.elliot.uldashbordnavigation.R
 
 /**
@@ -18,22 +21,26 @@ import ie.elliot.uldashbordnavigation.R
 open class CircleBar(context: Context,
                      attributeSet: AttributeSet?,
                      @ColorRes
-                    defaultBackgroundRes: Int,
+                     defaultBackgroundRes: Int,
                      @DimenRes
-                    private val defaultHeightRes: Int) : View(context, attributeSet) {
+                     private val defaultHeightRes: Int) : View(context, attributeSet) {
 
     private val backgroundPaint: Paint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private val cornerRadius: Float by lazy { (height / 2).toFloat() }
-    private val baseRect by lazy { RectF(cornerRadius, 0f, width.toFloat() - cornerRadius, height.toFloat()) }
+    private var barWidth: Float = 0f
+    private val widthAnimator: ValueAnimator = ValueAnimator.ofFloat(0f, 1f)
 
     init {
+        widthAnimator.duration = 700
+        widthAnimator.interpolator = AccelerateDecelerateInterpolator()
+
         @ColorRes
         val backgroundColour: Int
 
         if (attributeSet != null) {
-            val typedArray = context.theme.obtainStyledAttributes(attributeSet, R.styleable.BaseText, 0, 0)
+            val typedArray = context.theme.obtainStyledAttributes(attributeSet, R.styleable.CircleBar, 0, 0)
             try {
-                backgroundColour = typedArray.getColor(R.styleable.BaseText_backgroundColour, defaultBackgroundRes)
+                backgroundColour = typedArray.getColor(R.styleable.CircleBar_backgroundColour, defaultBackgroundRes)
             } finally {
                 typedArray.recycle()
             }
@@ -58,16 +65,34 @@ open class CircleBar(context: Context,
         }
 
         setMeasuredDimension(widthMeasureSpec, minHeight)
+        setBarWidth(measuredWidth.toFloat(), true)
     }
 
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         // Left corner
         canvas.drawCircle(cornerRadius, cornerRadius, cornerRadius, backgroundPaint)
         // Right corner
-        canvas.drawCircle(width - cornerRadius, cornerRadius, cornerRadius, backgroundPaint)
-        // Inbetween
-        canvas.drawRect(baseRect, backgroundPaint)
+        canvas.drawCircle(barWidth - cornerRadius, cornerRadius, cornerRadius, backgroundPaint)
+        // In-between
+        canvas.drawRect(RectF(cornerRadius, 0f, barWidth - cornerRadius, height.toFloat()), backgroundPaint)
+    }
+
+    protected fun setBarWidth(barWidth: Float, animate: Boolean) {
+        if (animate) {
+            setBarWidth(0f, false)
+            widthAnimator.addUpdateListener({ animation ->
+                val interpolation = animation.animatedValue as Float
+                setBarWidth(interpolation * barWidth, false)
+            })
+            if (!widthAnimator.isStarted) {
+                widthAnimator.start()
+            }
+        } else {
+            this.barWidth = barWidth
+            postInvalidate()
+        }
     }
 }
