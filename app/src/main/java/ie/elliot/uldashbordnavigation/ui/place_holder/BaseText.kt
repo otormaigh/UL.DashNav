@@ -46,6 +46,8 @@ open class BaseText(context: Context,
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
         val minHeight: Int
         // If height is supplied by the user, respect its value.
         // Else set height to default value.
@@ -55,7 +57,6 @@ open class BaseText(context: Context,
             minHeight = Math.round(resources.getDimension(defaultHeightRes))
         }
 
-        //super.onMeasure(widthMeasureSpec, minHeight)
         setMeasuredDimension(widthMeasureSpec, minHeight)
     }
 

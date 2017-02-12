@@ -23,7 +23,7 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
 
     init {
         backgroundPaint.style = Paint.Style.FILL
-        backgroundPaint.color = ContextCompat.getColor(context, R.color.colorAccent)
+        backgroundPaint.color = ContextCompat.getColor(context, R.color.background_card)
 
         val typedArray = context.theme.obtainStyledAttributes(attributeSet, R.styleable.Card, 0, 0)
         val titleCount: Int
