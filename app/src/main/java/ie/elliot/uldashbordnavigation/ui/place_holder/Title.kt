@@ -11,7 +11,7 @@ import ie.elliot.uldashbordnavigation.R
  * @since 11/02/2017
  */
 class Title(context: Context, attributeSet: AttributeSet?)
-    : BaseText(context, attributeSet, R.color.background_title, R.dimen.height_title) {
+    : CircleBar(context, attributeSet, R.color.background_title, R.dimen.height_title) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(Math.round(widthMeasureSpec * 0.75f), heightMeasureSpec)

@@ -15,11 +15,11 @@ import ie.elliot.uldashbordnavigation.R
  * @author Elliot Tormey
  * @since 11/02/2017
  */
-open class BaseText(context: Context,
-                    attributeSet: AttributeSet?,
-                    @ColorRes
+open class CircleBar(context: Context,
+                     attributeSet: AttributeSet?,
+                     @ColorRes
                     defaultBackgroundRes: Int,
-                    @DimenRes
+                     @DimenRes
                     private val defaultHeightRes: Int) : View(context, attributeSet) {
 
     private val backgroundPaint: Paint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }

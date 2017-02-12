@@ -11,7 +11,7 @@ import ie.elliot.uldashbordnavigation.R
  * @since 11/02/2017
  */
 class Description(context: Context, attributeSet: AttributeSet?)
-    : BaseText(context, attributeSet, R.color.background_description, R.dimen.height_description) {
+    : CircleBar(context, attributeSet, R.color.background_description, R.dimen.height_description) {
     var widthWeight: Int = 1
 
     init {
