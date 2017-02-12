@@ -13,7 +13,14 @@ import ie.elliot.uldashbordnavigation.R
 class Title(context: Context, attributeSet: AttributeSet?)
     : CircleBar(context, attributeSet, R.color.background_title, R.dimen.height_title) {
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(Math.round(widthMeasureSpec * 0.75f), heightMeasureSpec)
+    init {
+        if (attributeSet != null) {
+            val typedArray = context.theme.obtainStyledAttributes(attributeSet, R.styleable.Title, 0, 0)
+            try {
+                shouldAnimate = typedArray.getBoolean(R.styleable.Title_should_animate, true)
+            } finally {
+                typedArray.recycle()
+            }
+        }
     }
 }

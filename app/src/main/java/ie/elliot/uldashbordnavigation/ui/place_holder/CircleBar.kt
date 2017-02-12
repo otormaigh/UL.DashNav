@@ -29,6 +29,7 @@ open class CircleBar(context: Context,
     private val cornerRadius: Float by lazy { (height / 2).toFloat() }
     private var barWidth: Float = 0f
     private val widthAnimator: ValueAnimator = ValueAnimator.ofFloat(0f, 1f)
+    protected var shouldAnimate: Boolean = true
 
     init {
         widthAnimator.duration = 700
@@ -65,7 +66,7 @@ open class CircleBar(context: Context,
         }
 
         setMeasuredDimension(widthMeasureSpec, minHeight)
-        setBarWidth(measuredWidth.toFloat(), true)
+        setBarWidth(measuredWidth.toFloat(), shouldAnimate)
     }
 
     @SuppressLint("DrawAllocation")
@@ -80,8 +81,8 @@ open class CircleBar(context: Context,
         canvas.drawRect(RectF(cornerRadius, 0f, barWidth - cornerRadius, height.toFloat()), backgroundPaint)
     }
 
-    protected fun setBarWidth(barWidth: Float, animate: Boolean) {
-        if (animate) {
+    protected fun setBarWidth(barWidth: Float, shouldAnimate: Boolean) {
+        if (shouldAnimate) {
             setBarWidth(0f, false)
             widthAnimator.addUpdateListener({ animation ->
                 val interpolation = animation.animatedValue as Float

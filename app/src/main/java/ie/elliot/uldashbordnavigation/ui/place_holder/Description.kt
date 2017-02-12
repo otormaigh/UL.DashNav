@@ -26,10 +26,14 @@ class Description(context: Context, attributeSet: AttributeSet?)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val minWidth: Int
         if (widthWeight != 1) {
-            super.onMeasure((widthMeasureSpec / widthWeight), heightMeasureSpec)
+            minWidth = widthMeasureSpec / widthWeight
         } else {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+            minWidth = widthMeasureSpec
         }
+
+        setMeasuredDimension(minWidth, heightMeasureSpec)
+        super.onMeasure(minWidth, heightMeasureSpec)
     }
 }

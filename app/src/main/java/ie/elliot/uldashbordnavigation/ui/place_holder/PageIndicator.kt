@@ -13,6 +13,11 @@ import ie.elliot.uldashbordnavigation.R
  * @since 12/02/2017
  */
 class PageIndicator(context: Context, attributeSet: AttributeSet?) : View(context, attributeSet) {
+    object Mode {
+        val CIRCLE = 13
+        val TRIANGLE = 64
+    }
+
     private val indicatorPaint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private var indicatorCount: Int = 1
     private val indicatorRadius: Float by lazy { resources.getDimension(R.dimen.radius_indicator) }

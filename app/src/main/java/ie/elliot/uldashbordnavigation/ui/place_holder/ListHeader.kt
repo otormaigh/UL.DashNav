@@ -1,5 +1,6 @@
 package ie.elliot.uldashbordnavigation.ui.place_holder
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -14,8 +15,8 @@ import ie.elliot.uldashbordnavigation.R
  * @since 12/02/2017
  */
 class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(context, attributeSet) {
-    private val headerRect by lazy { Rect(0, 0, measuredWidth, measuredHeight) }
     private val headerPaint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
+    private var headerHeight: Int = 0
 
     init {
         headerPaint.style = Paint.Style.FILL
@@ -24,9 +25,36 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
         setWillNotDraw(false)
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        headerHeight = measuredHeight
+        setMeasuredDimension(widthMeasureSpec, headerHeight)
+    }
+
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        canvas.drawRect(headerRect, headerPaint)
+        canvas.drawRect(Rect(0, 0, measuredWidth, headerHeight), headerPaint)
+    }
+
+    fun changeHeightBy(changeBy: Int) {
+        // Only allow height change if height is above minimum. If its below, only allow change if
+        // its to increase the height.
+        if (headerHeight > 180 || (headerHeight <= 180 && changeBy < 0)) {
+            headerHeight -= (changeBy / 2)
+
+            // If height is below minHeight, reset.
+            if (headerHeight < 180) {
+                headerHeight = 180
+            }
+            layoutParams.height = headerHeight
+
+            // Only request layout if its not in the middle of one already.
+            if (!isInLayout) {
+                requestLayout()
+            }
+        }
     }
 }

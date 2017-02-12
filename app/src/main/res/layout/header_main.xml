@@ -1,13 +1,26 @@
 <ie.elliot.uldashbordnavigation.ui.place_holder.ListHeader xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/listHeader"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="200dp"
     android:gravity="center_horizontal"
-    android:paddingBottom="@dimen/padding_default_half">
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/padding_default_half"
+    android:paddingTop="@dimen/padding_default">
+
+    <ie.elliot.uldashbordnavigation.ui.place_holder.Title
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        app:should_animate="false" />
+
+    <Space
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <ie.elliot.uldashbordnavigation.ui.place_holder.PageIndicator
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:gravity="bottom"
         app:count="5" />
 </ie.elliot.uldashbordnavigation.ui.place_holder.ListHeader>

@@ -17,6 +17,10 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="Title">
+        <attr name="should_animate" format="boolean" />
+    </declare-styleable>
+
     <declare-styleable name="PageIndicator">
         <attr name="count" format="integer" />
     </declare-styleable>

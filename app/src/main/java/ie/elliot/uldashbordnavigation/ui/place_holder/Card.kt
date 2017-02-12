@@ -35,16 +35,19 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
             typedArray.recycle()
         }
 
-        val layoutParamsPaddingTop: LinearLayout.LayoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-        layoutParamsPaddingTop.setMargins(0, paddingDefaultHalf, 0, 0)
+        val descriptionMargin: LinearLayout.LayoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        descriptionMargin.setMargins(0, paddingDefaultHalf, 0, 0)
 
         for (i in 0..titleCount - 1) {
-            addView(Title(context, attributeSet), 0)
+
+            val title = Title(context, attributeSet)
+
+            addView(title)
         }
         for (i in 0..descriptionCount - 1) {
             val description = Description(context, attributeSet)
             description.widthWeight = 2
-            description.layoutParams = layoutParamsPaddingTop
+            description.layoutParams = descriptionMargin
 
             addView(description)
         }
