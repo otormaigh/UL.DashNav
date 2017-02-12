@@ -18,6 +18,7 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
     private val headerPaint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private var headerHeight: Int = 0
     private val minHeight = 180
+    private val maxHeight: Float by lazy { resources.getDimension(R.dimen.height_list_header) }
 
     init {
         headerPaint.style = Paint.Style.FILL
@@ -41,10 +42,14 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
     }
 
     fun changeHeightBy(changeBy: Int) {
-        // Only allow height change if height is above minimum. If its below, only allow change if
-        // its to increase the height.
+        // Only allow height change
+        // IF : Height is above minimum AND below maximum.
+        // OR : Height is below OR is minimum and changeBy is increasing height
+        // OR : Height is above OR is maximum and changeBy is decreasing height
         // TODO : Elliot -> Get actual value for minHeight
-        if (headerHeight > minHeight || (headerHeight <= minHeight && changeBy < 0)) {
+        if ((headerHeight > minHeight && headerHeight < maxHeight)
+                || (headerHeight <= minHeight && changeBy < 0)
+                || (headerHeight >= maxHeight && changeBy > 0)) {
             headerHeight -= (changeBy / 2)
 
             // If height is below minHeight, reset.

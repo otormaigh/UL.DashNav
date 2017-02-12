@@ -2,6 +2,7 @@
 <resources>
     <dimen name="height_title">16dp</dimen>
     <dimen name="height_description">9dp</dimen>
+    <dimen name="height_list_header">200dp</dimen>
 
     <dimen name="corner_radius">7dp</dimen>
 
