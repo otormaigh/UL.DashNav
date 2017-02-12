@@ -16,4 +16,8 @@
             <enum name="quart" value="4" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="PageIndicator">
+        <attr name="count" format="integer" />
+    </declare-styleable>
 </resources>
