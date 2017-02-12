@@ -39,9 +39,7 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
         descriptionMargin.setMargins(0, paddingDefaultHalf, 0, 0)
 
         for (i in 0..titleCount - 1) {
-
             val title = Title(context, attributeSet)
-
             addView(title)
         }
         for (i in 0..descriptionCount - 1) {

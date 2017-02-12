@@ -16,7 +16,6 @@ class PageIndicator(context: Context, attributeSet: AttributeSet? = null) : View
     private val indicatorPaint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private val indicatorRadius: Float by lazy { resources.getDimension(R.dimen.radius_indicator) }
     private val indicatorCircumference: Float by lazy { indicatorRadius * 2 }
-    private var widthRatio: Int = 1
 
     var indicatorCount: Int = 1
 
