@@ -17,6 +17,7 @@ import ie.elliot.uldashbordnavigation.R
 class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(context, attributeSet) {
     private val headerPaint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private var headerHeight: Int = 0
+    private val minHeight = 180
 
     init {
         headerPaint.style = Paint.Style.FILL
@@ -42,12 +43,13 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
     fun changeHeightBy(changeBy: Int) {
         // Only allow height change if height is above minimum. If its below, only allow change if
         // its to increase the height.
-        if (headerHeight > 180 || (headerHeight <= 180 && changeBy < 0)) {
+        // TODO : Elliot -> Get actual value for minHeight
+        if (headerHeight > minHeight || (headerHeight <= minHeight && changeBy < 0)) {
             headerHeight -= (changeBy / 2)
 
             // If height is below minHeight, reset.
-            if (headerHeight < 180) {
-                headerHeight = 180
+            if (headerHeight < minHeight) {
+                headerHeight = minHeight
             }
             layoutParams.height = headerHeight
 
