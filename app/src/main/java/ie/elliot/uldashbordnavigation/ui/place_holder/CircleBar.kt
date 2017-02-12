@@ -29,7 +29,7 @@ open class CircleBar(context: Context,
     private val cornerRadius: Float by lazy { (height / 2).toFloat() }
     private var barWidth: Float = 0f
     private val widthAnimator: ValueAnimator = ValueAnimator.ofFloat(0f, 1f)
-    protected var shouldAnimate: Boolean = true
+    var shouldAnimate: Boolean = true
 
     init {
         widthAnimator.duration = 700

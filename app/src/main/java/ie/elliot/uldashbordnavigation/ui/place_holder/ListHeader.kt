@@ -6,7 +6,9 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.Space
 import android.util.AttributeSet
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import ie.elliot.uldashbordnavigation.R
 
@@ -23,6 +25,19 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
     init {
         headerPaint.style = Paint.Style.FILL
         headerPaint.color = ContextCompat.getColor(context, R.color.colorPrimary)
+
+        val title = Title(context)
+        title.shouldAnimate = false
+        addView(title, resources.getDimension(R.dimen.width_list_title).toInt(), WRAP_CONTENT)
+
+        val spaceParams = LinearLayout.LayoutParams(0, 1, 1f)
+        val space = Space(context)
+        space.layoutParams = spaceParams
+        addView(space)
+
+        val pageIndicator = PageIndicator(context)
+        pageIndicator.indicatorCount = 5
+        addView(pageIndicator)
 
         setWillNotDraw(false)
     }
@@ -50,7 +65,7 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
         if ((headerHeight > minHeight && headerHeight < maxHeight)
                 || (headerHeight <= minHeight && changeBy < 0)
                 || (headerHeight >= maxHeight && changeBy > 0)) {
-            headerHeight -= (changeBy / 2)
+            headerHeight -= (changeBy / 3)
 
             // If height is below minHeight, reset.
             if (headerHeight < minHeight) {

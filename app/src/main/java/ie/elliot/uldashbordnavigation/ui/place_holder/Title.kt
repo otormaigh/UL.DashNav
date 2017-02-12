@@ -10,7 +10,7 @@ import ie.elliot.uldashbordnavigation.R
  * @author Elliot Tormey
  * @since 11/02/2017
  */
-class Title(context: Context, attributeSet: AttributeSet?)
+class Title(context: Context, attributeSet: AttributeSet? = null)
     : CircleBar(context, attributeSet, R.color.background_title, R.dimen.height_title) {
 
     init {

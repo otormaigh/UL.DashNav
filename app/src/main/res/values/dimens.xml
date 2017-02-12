@@ -4,6 +4,8 @@
     <dimen name="height_description">9dp</dimen>
     <dimen name="height_list_header">200dp</dimen>
 
+    <dimen name="width_list_title">150dp</dimen>
+
     <dimen name="corner_radius">7dp</dimen>
 
     <dimen name="padding_default">16dp</dimen>

@@ -4,7 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/header_main" />
+    <ie.elliot.uldashbordnavigation.ui.place_holder.ListHeader
+        android:id="@+id/listHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_list_header"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding_default_half"
+        android:paddingTop="@dimen/padding_default" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"

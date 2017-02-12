@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import ie.elliot.uldashbordnavigation.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.header_main.*
 
 class MainActivity : AppCompatActivity() {
 

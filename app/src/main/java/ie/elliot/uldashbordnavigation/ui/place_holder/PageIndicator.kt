@@ -12,16 +12,13 @@ import ie.elliot.uldashbordnavigation.R
  * @author Elliot Tormey
  * @since 12/02/2017
  */
-class PageIndicator(context: Context, attributeSet: AttributeSet?) : View(context, attributeSet) {
-    object Mode {
-        val CIRCLE = 13
-        val TRIANGLE = 64
-    }
-
+class PageIndicator(context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {
     private val indicatorPaint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
-    private var indicatorCount: Int = 1
     private val indicatorRadius: Float by lazy { resources.getDimension(R.dimen.radius_indicator) }
     private val indicatorCircumference: Float by lazy { indicatorRadius * 2 }
+    private var widthRatio: Int = 1
+
+    var indicatorCount: Int = 1
 
     init {
         indicatorPaint.style = Paint.Style.FILL
