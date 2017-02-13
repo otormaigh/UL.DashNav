@@ -1,10 +1,10 @@
-package ie.elliot.uldashbordnavigation.ui.activity
+package ie.elliot.uldashnav.ui.activity
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ie.elliot.uldashbordnavigation.R
+import ie.elliot.uldashnav.R
 
 /**
  * @author Elliot Tormey

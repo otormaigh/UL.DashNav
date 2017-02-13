@@ -1,4 +1,4 @@
-package ie.elliot.uldashbordnavigation.ui.place_holder
+package ie.elliot.uldashnav.ui.view
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,9 +8,10 @@ import android.graphics.Rect
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.Space
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
-import ie.elliot.uldashbordnavigation.R
+import ie.elliot.uldashnav.R
 
 /**
  * @author Elliot Tormey
@@ -19,14 +20,23 @@ import ie.elliot.uldashbordnavigation.R
 class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(context, attributeSet) {
     private val headerPaint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private var headerHeight: Int = 0
-    private val minHeight = 180
+    private val minHeight: Float
     private val maxHeight: Float by lazy { resources.getDimension(R.dimen.height_list_header) }
+    private val titleParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
 
     init {
+        val androidTypedArray = context.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize))
+        minHeight = context.resources.getDimension(androidTypedArray.getResourceId(0, 0))
+        androidTypedArray.recycle()
+
+        orientation = VERTICAL
+        gravity = Gravity.CENTER_HORIZONTAL
+
         headerPaint.style = Paint.Style.FILL
         headerPaint.color = ContextCompat.getColor(context, R.color.colorPrimary)
 
         val title = Title(context)
+        title.layoutParams = titleParams
         title.shouldAnimate = false
         addView(title, resources.getDimension(R.dimen.width_list_title).toInt(), WRAP_CONTENT)
 
@@ -56,6 +66,9 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
         canvas.drawRect(Rect(0, 0, measuredWidth, headerHeight), headerPaint)
     }
 
+    fun translateTitle(translateBy: Int) {
+    }
+
     fun changeHeightBy(changeBy: Int) {
         // Only allow height change
         // IF : Height is above minimum AND below maximum.
@@ -69,7 +82,7 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
 
             // If height is below minHeight, reset.
             if (headerHeight < minHeight) {
-                headerHeight = minHeight
+                headerHeight = minHeight.toInt()
             }
             layoutParams.height = headerHeight
 

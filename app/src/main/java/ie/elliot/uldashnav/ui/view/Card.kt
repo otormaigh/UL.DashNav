@@ -1,4 +1,4 @@
-package ie.elliot.uldashbordnavigation.ui.place_holder
+package ie.elliot.uldashnav.ui.view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
-import ie.elliot.uldashbordnavigation.R
+import ie.elliot.uldashnav.R
 
 /**
  * @author Elliot Tormey

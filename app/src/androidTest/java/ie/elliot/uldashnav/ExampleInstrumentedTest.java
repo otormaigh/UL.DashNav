@@ -1,4 +1,4 @@
-package ie.elliot.uldashbordnavigation;
+package ie.elliot.uldashnav;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

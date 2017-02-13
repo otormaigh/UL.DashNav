@@ -1,8 +1,8 @@
-package ie.elliot.uldashbordnavigation.ui.place_holder
+package ie.elliot.uldashnav.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
-import ie.elliot.uldashbordnavigation.R
+import ie.elliot.uldashnav.R
 
 /**
  * Place holder view for a 'Title'
