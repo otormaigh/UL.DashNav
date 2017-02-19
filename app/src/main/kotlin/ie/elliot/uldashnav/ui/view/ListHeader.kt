@@ -10,16 +10,20 @@ import android.support.v4.widget.Space
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import ie.elliot.uldashnav.R
+import ie.elliot.uldashnav.ViewExt.changeBounds
 
 /**
  * @author Elliot Tormey
  * @since 12/02/2017
  */
 class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(context, attributeSet) {
+    private companion object {
+        val LOG_TAG = "ListHeader"
+    }
+
     private val headerPaint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private var headerHeight: Int = 0
     private val minHeight: Float
@@ -30,8 +34,11 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
 
     // Views
     private val title by lazy { CircleBar(context, attributeSet, R.color.background_title, R.dimen.radius_title) }
+    private val pageIndicator by lazy { PageIndicator(context) }
 
     init {
+        setWillNotDraw(false)
+
         val androidTypedArray = context.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize))
         minHeight = context.resources.getDimension(androidTypedArray.getResourceId(0, 0))
         androidTypedArray.recycle()
@@ -51,11 +58,8 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
         space.layoutParams = spaceParams
         addView(space)
 
-        val pageIndicator = PageIndicator(context)
         pageIndicator.indicatorCount = 5
         addView(pageIndicator)
-
-        setWillNotDraw(false)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -77,8 +81,11 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                changeViewSize(title, false, dy, titleMinWidth, titleMaxWidth, title.layoutParams.width)
-                changeViewSize(this@ListHeader, true, dy, minHeight, maxHeight, layoutParams.height)
+                this@ListHeader.changeBounds(true, dy.toFloat(), minHeight, maxHeight, layoutParams.height)
+
+                // TODO -> Elliot : Change title and indicator size based on header height change.
+                title.changeBounds(false, dy.toFloat(), titleMinWidth, titleMaxWidth, title.layoutParams.width)
+                pageIndicator.changeWidth(dy.toFloat())
 
                 // Only request layout if its not in the middle of one already.
                 if (!isInLayout) {
@@ -90,27 +97,5 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })
-    }
-
-    private fun changeViewSize(view: View, isHeight: Boolean, changeBy: Int, minVal: Float, maxVal: Float, currentVal: Int) {
-        // Only allow height change
-        // IF : currentVal is above minimum AND below maximum.
-        // OR : currentVal is below OR is minimum and changeBy is increasing height
-        // OR : currentVal is above OR is maximum and changeBy is decreasing height
-        if ((currentVal > minVal && currentVal < maxVal)
-                || (currentVal <= minVal && changeBy < 0)
-                || currentVal >= maxVal && changeBy > 0) {
-            var newVal: Int = currentVal - (changeBy / 3)
-            // If newVal is below minVal, reset.
-            if (newVal < minVal) {
-                newVal = minVal.toInt()
-            }
-
-            if (isHeight) {
-                view.layoutParams.height = newVal
-            } else {
-                view.layoutParams.width = newVal
-            }
-        }
     }
 }

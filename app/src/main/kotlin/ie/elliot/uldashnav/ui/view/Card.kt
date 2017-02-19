@@ -21,6 +21,8 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
     private val paddingDefaultHalf: Int by lazy { (resources.getDimension(R.dimen.padding_default_half)).toInt() }
 
     init {
+        setWillNotDraw(false)
+
         backgroundPaint.style = Paint.Style.FILL
         backgroundPaint.color = ContextCompat.getColor(context, R.color.background_card)
 
@@ -50,8 +52,6 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
 
             addView(description)
         }
-
-        setWillNotDraw(false)
     }
 
     override fun onDraw(canvas: Canvas) {

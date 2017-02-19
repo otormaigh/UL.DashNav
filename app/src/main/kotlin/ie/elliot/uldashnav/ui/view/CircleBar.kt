@@ -19,7 +19,7 @@ import ie.elliot.uldashnav.R
  * @since 11/02/2017
  */
 open class CircleBar(context: Context,
-                     attributeSet: AttributeSet?,
+                     attributeSet: AttributeSet? = null,
                      @ColorRes
                      defaultBackgroundRes: Int,
                      @DimenRes
@@ -80,8 +80,11 @@ open class CircleBar(context: Context,
         canvas.drawCircle(circleRadius, circleRadius, circleRadius, backgroundPaint)
         // Right corner
         canvas.drawCircle(barWidth - circleRadius, circleRadius, circleRadius, backgroundPaint)
-        // In-between
-        canvas.drawRect(RectF(circleRadius, 0f, barWidth - circleRadius, height.toFloat()), backgroundPaint)
+
+        if (barWidth - circleRadius != 0f) {
+            // In-between
+            canvas.drawRect(RectF(circleRadius, 0f, barWidth - circleRadius, height.toFloat()), backgroundPaint)
+        }
     }
 
 

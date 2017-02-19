@@ -12,5 +12,6 @@
     <dimen name="padding_default">16dp</dimen>
     <dimen name="padding_default_half">8dp</dimen>
 
-    <dimen name="radius_indicator">4dp</dimen>
+    <dimen name="min_radius_indicator">4dp</dimen>
+    <dimen name="max_radius_indicator">30dp</dimen>
 </resources>
