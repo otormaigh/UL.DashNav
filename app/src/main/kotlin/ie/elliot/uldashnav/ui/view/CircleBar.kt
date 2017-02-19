@@ -25,8 +25,7 @@ open class CircleBar(context: Context,
                      @DimenRes
                      private val radiusResId: Int) : View(context, attributeSet) {
 
-    constructor(context: Context,
-                attributeSet: AttributeSet?) : this(context, attributeSet, 0, 0)
+    constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0, 0)
 
     private val backgroundPaint: Paint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private val cornerRadius: Float by lazy { (height / 2).toFloat() }

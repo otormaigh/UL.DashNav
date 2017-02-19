@@ -7,8 +7,10 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.Space
+import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import ie.elliot.uldashnav.R
@@ -23,6 +25,12 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
     private val minHeight: Float
     private val maxHeight: Float by lazy { resources.getDimension(R.dimen.height_list_header) }
     private val titleParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+    // Multiply by 2.1f to give a little padding either side when width is set to min.
+    private val titleMinWidth by lazy { context.resources.getDimension(R.dimen.radius_title) * 2.1f }
+    private val titleMaxWidth by lazy { context.resources.getDimension(R.dimen.width_list_title) }
+
+    // Views
+    private val title by lazy { CircleBar(context, attributeSet, R.color.background_title, R.dimen.radius_title) }
 
     init {
         val androidTypedArray = context.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize))
@@ -35,7 +43,6 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
         headerPaint.style = Paint.Style.FILL
         headerPaint.color = ContextCompat.getColor(context, R.color.colorPrimary)
 
-        val title = CircleBar(context, attributeSet, R.color.background_title, R.dimen.radius_title)
         title.layoutParams = titleParams
         title.shouldAnimate = false
         addView(title, resources.getDimension(R.dimen.width_list_title).toInt(), WRAP_CONTENT)
@@ -66,25 +73,47 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
         canvas.drawRect(Rect(0, 0, measuredWidth, headerHeight), headerPaint)
     }
 
-    fun translateTitle(translateBy: Int) {
+    fun setRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                changeHeaderHeight(dy)
+                changeTitleWidth(dy)
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
     }
 
-    fun changeHeightBy(changeBy: Int) {
-        // Only allow height change
-        // IF : Height is above minimum AND below maximum.
-        // OR : Height is below OR is minimum and changeBy is increasing height
-        // OR : Height is above OR is maximum and changeBy is decreasing height
-        // TODO : Elliot -> Get actual value for minHeight
-        if ((headerHeight > minHeight && headerHeight < maxHeight)
-                || (headerHeight <= minHeight && changeBy < 0)
-                || (headerHeight >= maxHeight && changeBy > 0)) {
-            headerHeight -= (changeBy / 3)
+    private fun changeTitleWidth(changeBy: Int) {
+        changeViewSize(title, false, changeBy, titleMinWidth, titleMaxWidth, title.layoutParams.width)
+    }
 
-            // If height is below minHeight, reset.
-            if (headerHeight < minHeight) {
-                headerHeight = minHeight.toInt()
+    private fun changeHeaderHeight(changeBy: Int) {
+        changeViewSize(this, true, changeBy, minHeight, maxHeight, layoutParams.height)
+    }
+
+    private fun changeViewSize(view: View, isHeight: Boolean, changeBy: Int, minVal: Float, maxVal: Float, currentVal: Int) {
+        // Only allow height change
+        // IF : currentVal is above minimum AND below maximum.
+        // OR : currentVal is below OR is minimum and changeBy is increasing height
+        // OR : currentVal is above OR is maximum and changeBy is decreasing height
+        if ((currentVal > minVal && currentVal < maxVal)
+                || (currentVal <= minVal && changeBy < 0)
+                || currentVal >= maxVal && changeBy > 0) {
+            var newVal: Int = currentVal - (changeBy / 3)
+            // If newVal is below minVal, reset.
+            if (newVal < minVal) {
+                newVal = minVal.toInt()
             }
-            layoutParams.height = headerHeight
+
+            if (isHeight) {
+                view.layoutParams.height = newVal
+            } else {
+                view.layoutParams.width = newVal
+            }
 
             // Only request layout if its not in the middle of one already.
             if (!isInLayout) {

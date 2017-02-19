@@ -25,17 +25,7 @@ class MainPagerAdapter(private val itemCount: Int,
 
         recyclerView.adapter = MainAdapter()
         recyclerView.layoutManager = LinearLayoutManager(layout.context)
-
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                listHeader.changeHeightBy(dy)
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-        })
+        listHeader.setRecyclerView(recyclerView)
         return layout
     }
 
