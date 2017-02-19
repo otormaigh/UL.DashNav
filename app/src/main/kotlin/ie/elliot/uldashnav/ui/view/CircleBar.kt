@@ -28,10 +28,10 @@ open class CircleBar(context: Context,
     constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0, 0)
 
     private val backgroundPaint: Paint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
-    private val cornerRadius: Float by lazy { (height / 2).toFloat() }
     private var barWidth: Float = 0f
     private val widthAnimator: ValueAnimator = ValueAnimator.ofFloat(0f, 1f)
     var shouldAnimate: Boolean = true
+    var circleRadius: Float = 0f
 
     init {
         widthAnimator.duration = 700
@@ -51,6 +51,7 @@ open class CircleBar(context: Context,
             backgroundColour = defaultBackgroundRes
         }
 
+        circleRadius = context.resources.getDimension(radiusResId)
         backgroundPaint.style = Paint.Style.FILL
         backgroundPaint.color = ContextCompat.getColor(context, backgroundColour)
     }
@@ -76,12 +77,13 @@ open class CircleBar(context: Context,
         super.onDraw(canvas)
 
         // Left corner
-        canvas.drawCircle(cornerRadius, cornerRadius, cornerRadius, backgroundPaint)
+        canvas.drawCircle(circleRadius, circleRadius, circleRadius, backgroundPaint)
         // Right corner
-        canvas.drawCircle(barWidth - cornerRadius, cornerRadius, cornerRadius, backgroundPaint)
+        canvas.drawCircle(barWidth - circleRadius, circleRadius, circleRadius, backgroundPaint)
         // In-between
-        canvas.drawRect(RectF(cornerRadius, 0f, barWidth - cornerRadius, height.toFloat()), backgroundPaint)
+        canvas.drawRect(RectF(circleRadius, 0f, barWidth - circleRadius, height.toFloat()), backgroundPaint)
     }
+
 
     private fun setBarWidth(barWidth: Float, shouldAnimate: Boolean) {
         if (shouldAnimate) {
