@@ -9,18 +9,6 @@
         <attr name="description_count" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="Description">
-        <attr name="width_weight" format="enum">
-            <enum name="full" value="1" />
-            <enum name="half" value="2" />
-            <enum name="quart" value="4" />
-        </attr>
-    </declare-styleable>
-
-    <declare-styleable name="Title">
-        <attr name="should_animate" format="boolean" />
-    </declare-styleable>
-
     <declare-styleable name="PageIndicator">
         <attr name="count" format="integer" />
     </declare-styleable>

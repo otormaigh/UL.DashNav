@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="height_title">16dp</dimen>
-    <dimen name="height_description">9dp</dimen>
+    <dimen name="radius_title">8dp</dimen>
+    <dimen name="radius_description">4dp</dimen>
     <dimen name="height_list_header">200dp</dimen>
 
     <dimen name="width_list_title">150dp</dimen>

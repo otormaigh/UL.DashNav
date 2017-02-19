@@ -23,7 +23,10 @@ open class CircleBar(context: Context,
                      @ColorRes
                      defaultBackgroundRes: Int,
                      @DimenRes
-                     private val defaultHeightRes: Int) : View(context, attributeSet) {
+                     private val radiusResId: Int) : View(context, attributeSet) {
+
+    constructor(context: Context,
+                attributeSet: AttributeSet?) : this(context, attributeSet, 0, 0)
 
     private val backgroundPaint: Paint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
     private val cornerRadius: Float by lazy { (height / 2).toFloat() }
@@ -62,7 +65,7 @@ open class CircleBar(context: Context,
         if (MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY) {
             minHeight = View.MeasureSpec.getSize(heightMeasureSpec)
         } else {
-            minHeight = Math.round(resources.getDimension(defaultHeightRes))
+            minHeight = Math.round(resources.getDimension(radiusResId)) * 2
         }
 
         setMeasuredDimension(widthMeasureSpec, minHeight)

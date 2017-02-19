@@ -35,7 +35,7 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
         headerPaint.style = Paint.Style.FILL
         headerPaint.color = ContextCompat.getColor(context, R.color.colorPrimary)
 
-        val title = Title(context)
+        val title = CircleBar(context, attributeSet, R.color.background_title, R.dimen.radius_title)
         title.layoutParams = titleParams
         title.shouldAnimate = false
         addView(title, resources.getDimension(R.dimen.width_list_title).toInt(), WRAP_CONTENT)

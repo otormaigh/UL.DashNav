@@ -6,7 +6,6 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.LinearLayout
 import ie.elliot.uldashnav.R
@@ -35,16 +34,18 @@ class Card(context: Context, attributeSet: AttributeSet) : LinearLayout(context,
             typedArray.recycle()
         }
 
-        val descriptionMargin: LinearLayout.LayoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        val descriptionMargin: LinearLayout.LayoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+        //descriptionMargin.width = (descriptionMargin.width * 0.5f).toInt()
         descriptionMargin.setMargins(0, paddingDefaultHalf, 0, 0)
 
         for (i in 0..titleCount - 1) {
-            val title = Title(context, attributeSet)
+            val title = CircleBar(context, attributeSet, R.color.background_title, R.dimen.radius_title)
+            title.minimumWidth = (measuredWidth * 0.75f).toInt()
+
             addView(title)
         }
         for (i in 0..descriptionCount - 1) {
-            val description = Description(context, attributeSet)
-            description.widthWeight = 2
+            val description = CircleBar(context, attributeSet, R.color.background_description, R.dimen.radius_description)
             description.layoutParams = descriptionMargin
 
             addView(description)
