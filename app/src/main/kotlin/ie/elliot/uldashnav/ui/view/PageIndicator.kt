@@ -20,7 +20,6 @@ class PageIndicator(context: Context, attributeSet: AttributeSet? = null) : View
     }
 
     private val indicatorPaint by lazy { Paint(Paint.ANTI_ALIAS_FLAG) }
-    //private val indicatorCircumference: Float by lazy { indicatorRadius * 2 }
     private var indicatorRadius: Float = 0f
     private var centerLeft: Float = 0f
     private val minRadius by lazy { context.resources.getDimension(R.dimen.min_radius_indicator) }
@@ -45,13 +44,10 @@ class PageIndicator(context: Context, attributeSet: AttributeSet? = null) : View
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        // Width is : (Indicator plus end padding) times (number of indicators) minus (padding of last indicator).
-        //val minWidth: Int = ((indicatorCircumference * 1.5f * indicatorCount) - indicatorRadius).toInt()
-        val minWidth = widthMeasureSpec
         // Height is : Indicator circumference.
         val minHeight: Int = (indicatorRadius * 2).toInt()
 
-        setMeasuredDimension(minWidth, minHeight)
+        setMeasuredDimension(widthMeasureSpec, minHeight)
 
         centerLeft = measuredWidth / 2 - (((indicatorRadius * 2 * 1.5f * indicatorCount) - indicatorRadius) / 2)
     }
