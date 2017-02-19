@@ -25,8 +25,7 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
     private val minHeight: Float
     private val maxHeight: Float by lazy { resources.getDimension(R.dimen.height_list_header) }
     private val titleParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-    // Multiply by 2.1f to give a little padding either side when width is set to min.
-    private val titleMinWidth by lazy { context.resources.getDimension(R.dimen.radius_title) * 2.1f }
+    private val titleMinWidth by lazy { context.resources.getDimension(R.dimen.min_width_list_title) }
     private val titleMaxWidth by lazy { context.resources.getDimension(R.dimen.width_list_title) }
 
     // Views
@@ -77,22 +76,20 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                changeHeaderHeight(dy)
-                changeTitleWidth(dy)
+
+                changeViewSize(title, false, dy, titleMinWidth, titleMaxWidth, title.layoutParams.width)
+                changeViewSize(this@ListHeader, true, dy, minHeight, maxHeight, layoutParams.height)
+
+                // Only request layout if its not in the middle of one already.
+                if (!isInLayout) {
+                    requestLayout()
+                }
             }
 
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
             }
         })
-    }
-
-    private fun changeTitleWidth(changeBy: Int) {
-        changeViewSize(title, false, changeBy, titleMinWidth, titleMaxWidth, title.layoutParams.width)
-    }
-
-    private fun changeHeaderHeight(changeBy: Int) {
-        changeViewSize(this, true, changeBy, minHeight, maxHeight, layoutParams.height)
     }
 
     private fun changeViewSize(view: View, isHeight: Boolean, changeBy: Int, minVal: Float, maxVal: Float, currentVal: Int) {
@@ -113,11 +110,6 @@ class ListHeader(context: Context, attributeSet: AttributeSet) : LinearLayout(co
                 view.layoutParams.height = newVal
             } else {
                 view.layoutParams.width = newVal
-            }
-
-            // Only request layout if its not in the middle of one already.
-            if (!isInLayout) {
-                requestLayout()
             }
         }
     }

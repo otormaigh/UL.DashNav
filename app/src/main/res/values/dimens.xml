@@ -5,6 +5,7 @@
     <dimen name="height_list_header">200dp</dimen>
 
     <dimen name="width_list_title">150dp</dimen>
+    <dimen name="min_width_list_title">75dp</dimen>
 
     <dimen name="corner_radius">7dp</dimen>
 

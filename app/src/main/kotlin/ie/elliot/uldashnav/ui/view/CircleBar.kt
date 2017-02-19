@@ -83,7 +83,7 @@ open class CircleBar(context: Context,
         canvas.drawRect(RectF(cornerRadius, 0f, barWidth - cornerRadius, height.toFloat()), backgroundPaint)
     }
 
-    protected fun setBarWidth(barWidth: Float, shouldAnimate: Boolean) {
+    private fun setBarWidth(barWidth: Float, shouldAnimate: Boolean) {
         if (shouldAnimate) {
             setBarWidth(0f, false)
             widthAnimator.addUpdateListener({ animation ->
